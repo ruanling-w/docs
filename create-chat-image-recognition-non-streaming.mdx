@@ -1,0 +1,105 @@
+﻿---
+title: "Create Chat Image Recognition"
+api: "POST https://api.chainhub.tech/v1/chat/completions"
+description: "Phát hiện và nhận dạng hình ảnh thông qua chat completion (phiên bản không stream)."
+---
+
+## Request Body
+
+<ParamField body="model" type="string" required>
+  ID của model được sử dụng (ví dụ: `gpt-4o`).
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  Danh sách các tin nhắn trong hội thoại. Mỗi tin nhắn bao gồm `role` và `content`.
+  
+  Đối với nhận dạng hình ảnh, `content` có thể là một mảng chứa text và `image_url`.
+  
+  <Expandable title="Chi tiết cấu trúc message nội dung hình ảnh">
+    <ParamField body="type" type="string">
+      Loại nội dung, giá trị là `text` hoặc `image_url`.
+    </ParamField>
+    <ParamField body="text" type="string">
+      Nội dung văn bản (nếu type là text).
+    </ParamField>
+    <ParamField body="image_url" type="object">
+      <Expandable title="Chi tiết object image_url">
+        <ParamField body="url" type="string">
+          Link HTTPS của hình ảnh hoặc Base64.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="temperature" type="number" default="1">
+  Nhiệt độ lấy mẫu (0 đến 2). Giá trị cao hơn làm đầu ra ngẫu nhiên hơn.
+</ParamField>
+
+<ParamField body="top_p" type="number" default="1">
+  Nucleus sampling: model chỉ xem xét các token có xác suất cộng dồn đạt top_p.
+</ParamField>
+
+<ParamField body="max_tokens" type="integer">
+  Số lượng token tối đa được tạo ra trong lượt chat completion.
+</ParamField>
+
+<ParamField body="stream" type="boolean" default="false">
+  Nếu là true, các phần của tin nhắn sẽ được gửi dưới dạng server-sent events.
+</ParamField>
+
+<ParamField body="tools" type="array">
+  Danh sách các tool (thường là function) mà model có thể gọi.
+</ParamField>
+
+## Response
+
+<ResponseField name="id" type="string">
+  ID duy nhất của lượt chat completion.
+</ResponseField>
+
+<ResponseField name="object" type="string">
+  Loại object, thường là `chat.completion`.
+</ResponseField>
+
+<ResponseField name="choices" type="array">
+  Danh sách các lựa chọn kết quả.
+  <Expandable title="Chi tiết choice">
+    <ResponseField name="message" type="object">
+      Chứa `role` và `content` của câu trả lời.
+    </ResponseField>
+    <ResponseField name="finish_reason" type="string">
+      Lý do kết thúc (ví dụ: `stop`, `length`).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="usage" type="object">
+  Thông tin về token đã sử dụng.
+</ResponseField>
+
+### Ví dụ Request
+
+```json
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Có gì trong bức ảnh này?"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://example.com/image.png"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
