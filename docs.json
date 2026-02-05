@@ -44,6 +44,36 @@
               "ai-tools/claude-code",
               "ai-tools/windsurf"
             ]
+          },
+          {
+            "group": "Chat",
+            "pages": [
+              "chat/chatgpt-interface/chatgpt-chat/chat-completion-object",
+              "chat/chatgpt-interface/chatgpt-chat/chat-completion-block-object",
+              "chat/chatgpt-interface/chatgpt-auto-completion/completion-object",
+              "chat/chatgpt-interface/chatgpt-embeddings/embedding-object",
+              "chat/anthropic-claude-interface/chat-completion-object",
+              "chat/anthropic-claude-interface/chat-completion-block-object",
+              "chat/chatgpt-interface/chatgpt-audio/gpt-4o-audio",
+              "chat/chatgpt-interface/chatgpt-audio/audio-to-text-whisper-1",
+              "chat/chatgpt-interface/chatgpt-audio/audio-to-text-gpt-4o-transcribe",
+              "chat/chatgpt-interface/chatgpt-audio/creating-voice-gpt-4o-mini-tts",
+              "chat/chatgpt-interface/chatgpt-audio/create-translation-not-supported",
+              "chat/chatgpt-interface/chatgpt-chat/create-chat-completion-streaming",
+              "chat/chatgpt-interface/chatgpt-chat/create-chat-image-recognition-streaming-best64",
+              "chat/chatgpt-interface/chatgpt-chat-chat/create-chat-image-recognition-non-streaming",
+              "chat/anthropic-claude-interface/native-format/pdf-supports-base64-format",
+              "chat/anthropic-claude-interface/chat-compatible-format/create-thinking-chat",
+              "chat/anthropic-claude-interface/chat-compatible-format/create-chat-completion-streaming",
+              "chat/anthropic-claude-interface/chat-compatible-format/create-chat-completion-non-streaming",
+              "chat/anthropic-claude-interface/chat-compatible-format/creating-chat-image-recognition-streaming",
+              "chat/anthropic-claude-interface/chat-compatible-format/creating-chat-image-recognition-non-streaming",
+              "chat/google-gemini-api/native-format/text-generation",
+              "chat/google-gemini-api/native-format/image-generation",
+              "chat/google-gemini-interface/native-format/image-generation-gemini-3-pro-image-preview-controlling-aspe",
+              "chat/google-gemini-interface/native-format/function-calls",
+              "chat/google-gemini-api/native-format/documentation-understanding"
+            ]
           }
         ]
       },
