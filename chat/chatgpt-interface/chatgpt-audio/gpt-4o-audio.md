@@ -1,7 +1,3 @@
-﻿# GPT-4o-audio
-
-## OpenAPI Specification
-
 ```yaml
 openapi: 3.0.1
 info:
@@ -125,5 +121,4 @@ servers:
     description: Production Environment
 security:
   - bearer: []
-
 ```
