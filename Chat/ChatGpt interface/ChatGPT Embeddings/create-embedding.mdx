@@ -1,0 +1,59 @@
+﻿---
+title: "Create Embeddings"
+api: "POST /v1/embeddings"
+description: "Generate vector representations of text for machine learning tasks."
+---
+
+Create an embedding vector representing the input text, suitable for tasks like search, clustering, or recommendations.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the model to use. Options: `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002`.
+</ParamField>
+
+<ParamField body="input" type="string or array" required>
+  Input text to get embeddings for, encoded as a string or array of tokens. To get embeddings for multiple inputs in a single request, pass an array of strings. Maximum length is 8192 tokens.
+</ParamField>
+
+<ParamField body="encoding_format" type="string" default="float">
+  The format to return the embeddings in. Options: `float`, `base64`.
+</ParamField>
+
+<ParamField body="dimensions" type="integer">
+  The number of dimensions the resulting output embeddings should have. Only supported in `text-embedding-3` and later models.
+</ParamField>
+
+<ParamField body="user" type="string">
+  A unique identifier representing your end-user.
+</ParamField>
+
+### Response
+
+The response returns a list of [Embedding Objects](/Chat/ChatGpt%20interface/ChatGPT%20Embeddings/embedded-object).
+
+<ResponseExample>
+
+```json Response
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "embedding",
+      "index": 0,
+      "embedding": [
+        0.0023064255,
+        -0.009327292,
+        0.0028842222
+      ]
+    }
+  ],
+  "model": "text-embedding-3-small",
+  "usage": {
+    "prompt_tokens": 8,
+    "total_tokens": 8
+  }
+}
+```
+
+</ResponseExample>

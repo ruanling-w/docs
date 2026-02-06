@@ -1,0 +1,47 @@
+﻿---
+title: "Function Calling"
+description: "Implement custom function calls within the Responses API."
+---
+
+Just like Chat Completions, the Responses API supports external function definitions.
+
+### Configuration
+
+<ParamField body="tools" type="array">
+  <Expandable title="Function Tool">
+    <ParamField body="type" type="string">
+      Set to `function`.
+    </ParamField>
+    <ParamField body="function" type="object">
+      <Expandable title="Function Details">
+        <ParamField body="name" type="string" required />
+        <ParamField body="parameters" type="object" />
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gpt-4o",
+  "messages": [
+    { "role": "user", "content": "Book a flight to Paris." }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "book_flight",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "dest": { "type": "string" }
+          }
+        }
+      }
+    }
+  ]
+}
+```
+</ResponseExample>

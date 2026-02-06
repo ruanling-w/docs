@@ -1,0 +1,41 @@
+﻿---
+title: "Advanced Image Controls (Gemini 3 Pro)"
+description: "Control aspect ratio and generation quality for Gemini 3 Pro Imagen."
+---
+
+### Endpoint
+
+`POST /v1beta/models/gemini-3-pro-image-preview:generateContent`
+
+### Request Body
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+    <ParamField body="imageConfig" type="object">
+      <Expandable title="Image Config">
+        <ParamField body="aspectRatio" type="string">
+          Specify image dimensions (e.g., `"16:9"`).
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "Detailed portrait of a fantasy warrior." }]
+    }
+  ],
+  "generationConfig": {
+    "responseModalities": ["IMAGE"],
+    "imageConfig": {
+      "aspectRatio": "1:1"
+    }
+  }
+}
+```
+</ResponseExample>

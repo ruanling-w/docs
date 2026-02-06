@@ -1,0 +1,161 @@
+﻿---
+title: "Create Qwen MT Turbo Chat"
+api: "POST /v1/chat/completions"
+description: "Generates a chat completion with machine translation capabilities using Qwen MT Turbo."
+---
+
+Qwen MT Turbo provides specialized translation services integrated into the chat completion workflow.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  Set to `qwen-mt-turbo`.
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  Conversation history.
+</ParamField>
+
+<ParamField body="translation_options" type="object">
+  Options for machine translation.
+  <Expandable title="properties">
+    <ParamField body="source_lang" type="string" default="auto">
+      The source language of the text.
+    </ParamField>
+    <ParamField body="target_lang" type="string" required>
+      The target language for translation.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": "Translated text goes here."
+      }
+    }
+  ]
+}
+```
+
+</ResponseExample>
+            example:
+              model: qwen-mt-turbo
+              messages:
+                - role: user
+                  content: I didn't laugh after watching this video.
+              translation_options:
+                source_lang: auto
+                target_lang: English
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                  created:
+                    type: integer
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                        message:
+                          type: object
+                          properties:
+                            role:
+                              type: string
+                            content:
+                              type: string
+                          required:
+                            - role
+                            - content
+                          x-apifox-orders:
+                            - role
+                            - content
+                        finish_reason:
+                          type: string
+                      x-apifox-orders:
+                        - index
+                        - message
+                        - finish_reason
+                  usage:
+                    type: object
+                    properties:
+                      prompt_tokens:
+                        type: integer
+                      completion_tokens:
+                        type: integer
+                      total_tokens:
+                        type: integer
+                    required:
+                      - prompt_tokens
+                      - completion_tokens
+                      - total_tokens
+                    x-apifox-orders:
+                      - prompt_tokens
+                      - completion_tokens
+                      - total_tokens
+                required:
+                  - id
+                  - object
+                  - created
+                  - choices
+                  - usage
+                x-apifox-orders:
+                  - id
+                  - object
+                  - created
+                  - choices
+                  - usage
+              example:
+                id: chatcmpl-123
+                object: chat.completion
+                created: 1677652288
+                choices:
+                  - index: 0
+                    message:
+                      role: assistant
+                      content: |-
+
+
+                        Hello there, how may I assist you today?
+                    finish_reason: stop
+                usage:
+                  prompt_tokens: 9
+                  completion_tokens: 12
+                  total_tokens: 21
+          headers: {}
+          x-apifox-name: OK
+      security:
+        - bearer: []
+      x-apifox-folder: Chat/ChatGpt Interface/ChatGPT Chat
+      x-apifox-status: released
+      x-run-in-apifox: https://app.apifox.com/web/project/5443236/apis/api-327199929-run
+components:
+  schemas: {}
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+servers:
+  - url: https://api.chainhub.tech
+    description: Production Environment
+security:
+  - bearer: []
+```

@@ -1,0 +1,39 @@
+﻿---
+title: "Audio Translation (Whisper)"
+api: "POST /v1/audio/translations"
+description: "Translate audio from various languages into English text."
+---
+
+Translate audio files into English text using the `whisper-1` model.
+
+### Request Body
+
+<ParamField body="file" type="file" required>
+  The audio file object to translate. Supported formats: `flac`, `mp3`, `mp4`, `mpeg`, `mpga`, `m4a`, `ogg`, `wav`, or `webm`.
+</ParamField>
+
+<ParamField body="model" type="string" required>
+  The ID of the model to use. Must be `whisper-1`.
+</ParamField>
+
+<ParamField body="prompt" type="string">
+  An optional text prompt in English to guide the model's style.
+</ParamField>
+
+<ParamField body="response_format" type="string" default="json">
+  The format of the translation output. Options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.
+</ParamField>
+
+<ParamField body="temperature" type="number" default="0">
+  Sampling temperature between 0 and 1.
+</ParamField>
+
+<ResponseExample>
+
+```json Response
+{
+  "text": "Hello, my name is Wolfgang and I come from Germany. Where are you heading today?"
+}
+```
+
+</ResponseExample>

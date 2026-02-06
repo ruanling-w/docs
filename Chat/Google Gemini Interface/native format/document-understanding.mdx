@@ -1,0 +1,54 @@
+﻿---
+title: "Document Understanding"
+description: "Analyze PDF or other documents using the native Gemini endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <Expandable title="Part Object">
+        <ParamField body="text" type="string">
+          The text prompt or question about the document.
+        </ParamField>
+        <ParamField body="inline_data" type="object">
+          The document data.
+          <Expandable title="Inline Data Object">
+            <ParamField body="mime_type" type="string" required>
+              e.g., `application/pdf`.
+            </ParamField>
+            <ParamField body="data" type="string" required>
+              Base64 encoded document data.
+            </ParamField>
+          </Expandable>
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        { "text": "Summarize this PDF document." },
+        {
+          "inline_data": {
+            "mime_type": "application/pdf",
+            "data": "BASE64_DOCUMENT_DATA"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+</ResponseExample>

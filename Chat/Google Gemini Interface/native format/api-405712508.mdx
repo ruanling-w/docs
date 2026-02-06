@@ -1,0 +1,44 @@
+﻿---
+title: "Text to Speech (Native)"
+description: "Convert text into high-quality audio using the Gemini TTS native endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <ParamField body="text" type="string">
+        The text to be converted to speech.
+      </ParamField>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+     <ParamField body="responseModalities" type="array" required>
+      Set to `["AUDIO"]` to enable TTS output.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "Hello, how can I help you today?" }]
+    }
+  ],
+  "generationConfig": {
+    "responseModalities": ["AUDIO"]
+  }
+}
+```
+</ResponseExample>

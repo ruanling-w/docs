@@ -1,0 +1,54 @@
+﻿---
+title: "Image Understanding (Native)"
+description: "Analyze images using the native Gemini generateContent endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <Expandable title="Part Object">
+        <ParamField body="text" type="string">
+          The text prompt or question about the image.
+        </ParamField>
+        <ParamField body="inline_data" type="object">
+          The image data.
+          <Expandable title="Inline Data Object">
+            <ParamField body="mime_type" type="string" required>
+              e.g., `image/png`, `image/jpeg`.
+            </ParamField>
+            <ParamField body="data" type="string" required>
+              Base64 encoded image data.
+            </ParamField>
+          </Expandable>
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        { "text": "What is in this image?" },
+        {
+          "inline_data": {
+            "mime_type": "image/png",
+            "data": "BASE64_IMAGE_DATA"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+</ResponseExample>

@@ -1,0 +1,44 @@
+﻿---
+title: "Image Generation (Imagen)"
+description: "Generate images using Google's Imagen model via the native Gemini endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <ParamField body="text" type="string">
+        Description of the image to generate.
+      </ParamField>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+    <ParamField body="responseModalities" type="array" required>
+      Set to `["IMAGE"]` or `["TEXT", "IMAGE"]` to enable image generation.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "A futuristic city in the style of cyberpunk." }]
+    }
+  ],
+  "generationConfig": {
+    "responseModalities": ["IMAGE"]
+  }
+}
+```
+</ResponseExample>

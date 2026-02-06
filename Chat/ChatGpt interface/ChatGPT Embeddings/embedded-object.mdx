@@ -1,0 +1,37 @@
+---
+title: "The Embedding Object"
+description: "Represents the embedding vector returned by the endpoint."
+---
+
+The `embedding` object represents a single vector representation of an input.
+
+### Fields
+
+<ResponseField name="index" type="integer">
+  The index of the embedding in the list of embeddings.
+</ResponseField>
+
+<ResponseField name="embedding" type="array">
+  The embedding vector, which is a list of floating-point numbers. The length of the vector depends on the model used.
+</ResponseField>
+
+<ResponseField name="object" type="string">
+  The object type, which is always `embedding`.
+</ResponseField>
+
+<ResponseExample>
+
+```json Example
+{
+  "object": "embedding",
+  "index": 0,
+  "embedding": [
+    0.0023064255,
+    -0.009327292,
+    0.0028842222
+  ]
+}
+```
+
+</ResponseExample>
+

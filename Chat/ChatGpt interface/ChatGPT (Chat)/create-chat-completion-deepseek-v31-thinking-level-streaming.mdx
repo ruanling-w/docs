@@ -1,0 +1,137 @@
+﻿---
+title: "Create DeepSeek V3.1 Thinking Chat (Streaming)"
+api: "POST /v1/chat/completions"
+description: "Generates a streaming chat completion with deep reasoning using DeepSeek V3.1."
+---
+
+DeepSeek V3.1 supports advanced reasoning capabilities through the `thinking` field.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The model ID (e.g., `deepseek-v3-1-250821`).
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  Conversation history.
+</ParamField>
+
+<ParamField body="thinking" type="object">
+  Configuration for deep reasoning.
+  <Expandable title="properties">
+    <ParamField body="type" type="string">
+      `enabled`, `disabled`, or `auto`. Forces deep reasoning state.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="stream" type="boolean" default="true" required>
+  Set to `true` to enable streaming.
+</ParamField>
+
+<ResponseExample>
+
+```json Response (Chunk)
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion.chunk",
+  "choices": [
+    {
+      "delta": {
+        "content": "The solution is...",
+        "reasoning_content": "Considering the mathematical properties..."
+      }
+    }
+  ]
+}
+```
+
+</ResponseExample>
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                  created:
+                    type: integer
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                        message:
+                          type: object
+                          properties:
+                            role:
+                              type: string
+                            content:
+                              type: string
+                          required:
+                            - role
+                            - content
+                          x-apifox-orders:
+                            - role
+                            - content
+                        finish_reason:
+                          type: string
+                      x-apifox-orders:
+                        - index
+                        - message
+                        - finish_reason
+                  usage:
+                    type: object
+                    properties:
+                      prompt_tokens:
+                        type: integer
+                      completion_tokens:
+                        type: integer
+                      total_tokens:
+                        type: integer
+                    required:
+                      - prompt_tokens
+                      - completion_tokens
+                      - total_tokens
+                    x-apifox-orders:
+                      - prompt_tokens
+                      - completion_tokens
+                      - total_tokens
+                required:
+                  - id
+                  - object
+                  - created
+                  - choices
+                  - usage
+                x-apifox-orders:
+                  - id
+                  - object
+                  - created
+                  - choices
+                  - usage
+          headers: {}
+          x-apifox-name: OK
+      security:
+        - bearer: []
+      x-apifox-folder: Chat/ChatGpt Interface/ChatGPT Chat
+      x-apifox-status: released
+      x-run-in-apifox: https://app.apifox.com/web/project/5443236/apis/api-339969197-run
+components:
+  schemas: {}
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+servers:
+  - url: https://api.chainhub.tech
+    description: Production Environment
+security:
+  - bearer: []
+```

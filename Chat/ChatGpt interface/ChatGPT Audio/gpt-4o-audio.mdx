@@ -1,0 +1,56 @@
+﻿---
+title: "Omni Audio (GPT-4o Audio)"
+api: "POST /v1/chat/completions"
+description: "Generate multi-modal responses including text and audio."
+---
+
+The `gpt-4o-audio-preview` model allows for native audio input and output.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The model ID. Use `gpt-4o-audio-preview`.
+</ParamField>
+
+<ParamField body="modalities" type="array" default='["text"]'>
+  The output modalities. Set to `["text", "audio"]` to receive audio responses.
+</ParamField>
+
+<ParamField body="audio" type="object">
+  Audio output settings.
+  <Expandable title="properties">
+    <ParamField body="voice" type="string" required>
+      Supported voices: `alloy`, `ash`, `ballad`, `coral`, `echo`, `fable`, `nova`, `onyx`, `sage`, or `shimmer`.
+    </ParamField>
+    <ParamField body="format" type="string" required>
+      Output format: `wav`, `mp3`, `flac`, `opus`, or `pcm16`.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  The conversation history.
+</ParamField>
+
+<ResponseExample>
+
+```json Example Request
+{
+  "model": "gpt-4o-audio-preview",
+  "modalities": ["text", "audio"],
+  "audio": {
+    "voice": "alloy",
+    "format": "wav"
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "Is a golden retriever a good family dog?"
+    }
+  ]
+}
+```
+
+</ResponseExample>
+
+```

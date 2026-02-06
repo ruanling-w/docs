@@ -1,0 +1,57 @@
+﻿---
+title: "Image Generation (Gemini 2.5 Flash)"
+description: "High-speed image generation and editing using the Gemini 2.5 Flash model."
+---
+
+### Endpoint
+
+`POST /v1beta/models/gemini-2.5-flash-image:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <ParamField body="text" type="string">
+        Description or edit instructions.
+      </ParamField>
+      <ParamField body="inline_data" type="object">
+        Optional base64 image for image-to-image or editing tasks.
+      </ParamField>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+     <ParamField body="responseModalities" type="array" required>
+      Set to `["IMAGE"]`.
+    </ParamField>
+    <ParamField body="imageConfig" type="object">
+      <Expandable title="Image Config">
+        <ParamField body="aspectRatio" type="string">
+          e.g., `"1:1"`, `"4:3"`, `"16:9"`.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "A serene mountain lake at sunset." }]
+    }
+  ],
+  "generationConfig": {
+    "responseModalities": ["IMAGE"],
+    "imageConfig": {
+      "aspectRatio": "16:9"
+    }
+  }
+}
+```
+</ResponseExample>

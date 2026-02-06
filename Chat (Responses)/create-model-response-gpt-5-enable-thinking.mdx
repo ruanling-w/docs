@@ -1,0 +1,35 @@
+﻿---
+title: "Thinking & Reasoning"
+description: "Control the depth of reasoning for advanced models like o1 or o3-pro."
+---
+
+Certain models support deep reasoning before responding. You can control the effort spent on this process.
+
+### Configuration
+
+<ParamField body="thinking" type="object">
+  <Expandable title="Thinking Object">
+    <ParamField body="include_thoughts" type="boolean">
+      Whether to return the model's internal reasoning process.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="reasoning_effort" type="string">
+  The intensity of thinking. Values: `low`, `medium`, `high`.
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "o1-preview",
+  "messages": [
+    { "role": "user", "content": "Prove the Riemann Hypothesis." }
+  ],
+  "thinking": {
+    "include_thoughts": true
+  },
+  "reasoning_effort": "high"
+}
+```
+</ResponseExample>

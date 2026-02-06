@@ -1,0 +1,61 @@
+---
+title: "Controlling Inference Effort"
+api: "POST /v1/chat/completions"
+description: "Controls the reasoning effort for inference-optimized models like o1."
+---
+
+Models like `o1` allow you to control the balance between reasoning quality and speed using the `reasoning_effort` parameter.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the model to use (e.g., `o1`, `o3-mini`).
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  A list of messages comprising the conversation so far.
+</ParamField>
+
+<ParamField body="reasoning_effort" type="string" default="medium">
+  The level of effort to spend on reasoning (`low`, `medium`, `high`).
+</ParamField>
+
+<ParamField body="max_completion_tokens" type="integer">
+  An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens.
+</ParamField>
+
+### Response
+
+The response follows the standard [Chat Completion Object](/Chat/ChatGpt%20interface/ChatGPT%20(Chat)/chat-completion-object) structure, with reasoning tokens included in the usage statistics.
+
+<ResponseExample>
+
+```json Response
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "model": "o1",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The solution to your complex problem is...",
+        "reasoning_content": "To solve this, first we need to..."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 100,
+    "completion_tokens": 500,
+    "total_tokens": 600,
+    "completion_tokens_details": {
+      "reasoning_tokens": 300
+    }
+  }
+}
+```
+
+</ResponseExample>

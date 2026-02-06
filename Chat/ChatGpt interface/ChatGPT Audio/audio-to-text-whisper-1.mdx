@@ -1,0 +1,45 @@
+﻿---
+title: "Audio Transcription (Whisper)"
+api: "POST /v1/audio/transcriptions"
+description: "Transcribe audio into text using the Whisper v1 model."
+---
+
+Convert audio files into text using the industry-standard `whisper-1` model.
+
+### Request Body
+
+<ParamField body="file" type="file" required>
+  The audio file object to transcribe. Supported formats: `flac`, `mp3`, `mp4`, `mpeg`, `mpga`, `m4a`, `ogg`, `wav`, or `webm`.
+</ParamField>
+
+<ParamField body="model" type="string" required>
+  The ID of the model to use. Must be `whisper-1`.
+</ParamField>
+
+<ParamField body="language" type="string">
+  The language of the input audio in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format.
+</ParamField>
+
+<ParamField body="prompt" type="string">
+  An optional text prompt to guide the model's style.
+</ParamField>
+
+<ParamField body="response_format" type="string" default="json">
+  The format of the transcription output. Options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.
+</ParamField>
+
+<ParamField body="temperature" type="number" default="0">
+  Sampling temperature between 0 and 1.
+</ParamField>
+
+<ResponseExample>
+
+```json Response
+{
+  "text": "The quick brown fox jumps over the lazy dog."
+}
+```
+
+</ResponseExample>
+
+```

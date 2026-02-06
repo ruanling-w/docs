@@ -1,0 +1,32 @@
+﻿---
+title: "Code Execution (Native)"
+description: "Allow Gemini to write and execute Python code to solve complex problems."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="tools" type="array" required>
+  <Expandable title="Tool Object">
+    <ParamField body="codeExecution" type="object">
+      Include an empty object `{}` to enable the Python interpreter tool.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "Calculate the sum of the first 100 prime numbers." }]
+    }
+  ],
+  "tools": [{ "codeExecution": {} }]
+}
+```
+</ResponseExample>

@@ -1,0 +1,59 @@
+---
+title: "The Completion Object"
+description: "Represents the legacy text completion response object."
+---
+
+The `text_completion` object represents a response from the non-chat completion endpoint.
+
+### Fields
+
+<ResponseField name="id" type="string">
+  Unique identifier for the completion.
+</ResponseField>
+
+<ResponseField name="object" type="string">
+  The object type, which is always `text_completion`.
+</ResponseField>
+
+<ResponseField name="created" type="integer">
+  The Unix timestamp (in seconds) when the completion was created.
+</ResponseField>
+
+<ResponseField name="model" type="string">
+  The model used for the completion.
+</ResponseField>
+
+<ResponseField name="choices" type="array">
+  A list of completion choices the model generated for the input prompt.
+</ResponseField>
+
+<ResponseField name="usage" type="object">
+  Usage statistics for the completion request.
+</ResponseField>
+
+<ResponseExample>
+
+```json Example
+{
+  "id": "cmpl-uqkvlQyYK7bGYrRHQ0eXlWi7",
+  "object": "text_completion",
+  "created": 1589478378,
+  "model": "gpt-3.5-turbo-instruct",
+  "choices": [
+    {
+      "text": "\n\nThis is indeed a test",
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5,
+    "completion_tokens": 7,
+    "total_tokens": 12
+  }
+}
+```
+
+</ResponseExample>
+

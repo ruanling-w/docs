@@ -1,0 +1,46 @@
+﻿---
+title: "Video Understanding (URL)"
+description: "Analyze videos using public URLs via the native Gemini endpoint."
+---
+
+<Note>
+  Unlike the base64 method, this approach enables the model to fetch video content from a provided URL using the `urlContext` tool.
+</Note>
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="tools" type="array" required>
+  <Expandable title="Tool Object">
+    <ParamField body="urlContext" type="object">
+      Required to enable video fetching from URLs.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <ParamField body="text" type="string">
+        The video URL followed by your analysis prompt.
+      </ParamField>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "https://example.com/video.mp4 What happens in the first 5 seconds?" }]
+    }
+  ],
+  "tools": [{ "urlContext": {} }]
+}
+```
+</ResponseExample>

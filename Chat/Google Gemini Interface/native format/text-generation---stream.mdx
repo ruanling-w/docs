@@ -1,0 +1,89 @@
+﻿---
+title: "Text Generation (Stream)"
+description: "Generate responses from Google Gemini models using the native streamGenerateContent endpoint."
+---
+
+<Note>
+  Gemini's native format uses `contents` and `parts` instead of the OpenAI `messages` format. This endpoint supports Server-Sent Events (SSE).
+</Note>
+
+### Endpoint
+
+`POST /v1beta/models/{model}:streamGenerateContent`
+
+### Request Parameters
+
+<ParamField query="alt" type="string" default="sse">
+  Use `sse` for Server-Sent Events streaming.
+</ParamField>
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  The conversation history.
+  <Expandable title="Content Object">
+    <ParamField body="role" type="string">
+      The role of the speaker (`user` or `model`).
+    </ParamField>
+    <ParamField body="parts" type="array" required>
+      Ordered list of parts that make up the message.
+      <Expandable title="Part Object">
+        <ParamField body="text" type="string">
+          The text content.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="systemInstruction" type="object">
+  Instructions for the model's behavior.
+  <Expandable title="System Instruction Object">
+    <ParamField body="parts" type="array">
+      Text parts for the system instruction.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  Configuration for the generation process.
+  <Expandable title="Generation Config Object">
+    <ParamField body="temperature" type="number">
+      Sampling temperature.
+    </ParamField>
+    <ParamField body="thinkingConfig" type="object">
+       Configuration for reasoning models.
+       <Expandable title="Thinking Config">
+          <ParamField body="includeThoughts" type="boolean">
+            Whether to include thoughts in the output.
+          </ParamField>
+          <ParamField body="thinkingBudget" type="integer">
+            Token budget for reasoning.
+          </ParamField>
+       </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "systemInstruction": {
+    "parts": [{ "text": "You are a helpful assistant." }]
+  },
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "Solve for x: 2x + 5 = 15" }]
+    }
+  ],
+  "generationConfig": {
+    "temperature": 0.7,
+    "thinkingConfig": {
+      "includeThoughts": true,
+      "thinkingBudget": 1024
+    }
+  }
+}
+```
+</ResponseExample>

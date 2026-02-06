@@ -1,0 +1,54 @@
+﻿---
+title: "Video Understanding"
+description: "Analyze video content using base64 data in the native Gemini endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <Expandable title="Part Object">
+        <ParamField body="text" type="string">
+          Instructions for the video analysis.
+        </ParamField>
+        <ParamField body="inline_data" type="object">
+          The video data.
+          <Expandable title="Inline Data Object">
+            <ParamField body="mime_type" type="string" required>
+              e.g., `video/mp4`.
+            </ParamField>
+            <ParamField body="data" type="string" required>
+              Base64 encoded video segment.
+            </ParamField>
+          </Expandable>
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        { "text": "Describe the events in this video." },
+        {
+          "inline_data": {
+            "mime_type": "video/mp4",
+            "data": "BASE64_VIDEO_DATA"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+</ResponseExample>

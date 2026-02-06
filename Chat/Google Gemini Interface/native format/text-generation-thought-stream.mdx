@@ -1,0 +1,80 @@
+﻿---
+title: "Text Generation with Thinking (Stream)"
+description: "Generate responses from Google Gemini 2.0+ models with integrated reasoning (Thinking) via native streaming."
+---
+
+<Note>
+  Thinking models (like Gemini 2.0 Pro) allow you to configure a `thinkingBudget` to control the depth of reasoning.
+</Note>
+
+### Endpoint
+
+`POST /v1beta/models/{model}:streamGenerateContent`
+
+### Request Parameters
+
+<ParamField query="alt" type="string" default="sse">
+  Use `sse` for streaming output.
+</ParamField>
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  History of the conversation.
+</ParamField>
+
+<ParamField body="systemInstruction" type="object">
+  Model instructions.
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+    <ParamField body="thinkingConfig" type="object">
+       <Expandable title="Thinking Config">
+          <ParamField body="includeThoughts" type="boolean">
+            Include process thoughts in response.
+          </ParamField>
+          <ParamField body="thinkingBudget" type="integer">
+            Maximum tokens to spend on reasoning.
+          </ParamField>
+       </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="safetySettings" type="array">
+  Configure safety filters.
+  <Expandable title="Safety Setting Object">
+    <ParamField body="category" type="string">
+      e.g., `HARM_CATEGORY_HATE_SPEECH`.
+    </ParamField>
+    <ParamField body="threshold" type="string">
+      e.g., `BLOCK_NONE`, `OFF`.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "1+2+3+4+5+....+999?" }]
+    }
+  ],
+  "generationConfig": {
+    "temperature": 1,
+    "topP": 1,
+    "thinkingConfig": {
+      "includeThoughts": true,
+      "thinkingBudget": 26240
+    }
+  },
+  "safetySettings": [
+    { "category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "OFF" },
+    { "category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "OFF" }
+  ]
+}
+```
+</ResponseExample>

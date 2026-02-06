@@ -1,0 +1,40 @@
+﻿---
+title: "Web Search"
+api: "POST /v1/chat/completions"
+description: "Enable web search capabilities for Chat Completion models."
+---
+
+Models like `gpt-4o-search-preview` can perform real-time web searches to provide up-to-date information.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The model ID. Use `gpt-4o-search-preview` or other search-enabled models.
+</ParamField>
+
+<ParamField body="web_search_options" type="object" required>
+  Options for the web search. Can be an empty object `{}` for default settings.
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  The conversation history.
+</ParamField>
+
+<ResponseExample>
+
+```json Example Request
+{
+  "model": "gpt-4o-search-preview",
+  "web_search_options": {},
+  "messages": [
+    {
+      "role": "user",
+      "content": "What was a positive news story from today?"
+    }
+  ]
+}
+```
+
+</ResponseExample>
+
+```

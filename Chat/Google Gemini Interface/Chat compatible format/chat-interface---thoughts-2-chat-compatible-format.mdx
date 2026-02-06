@@ -1,0 +1,83 @@
+﻿---
+title: "Gemini Thinking - Thinking Config (Compatible)"
+description: "Enable reasoning on Gemini models using the thinking_config parameter in extra_body."
+---
+
+<Note>
+  This method allows for more granular control over the thinking budget.
+</Note>
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the Gemini model (e.g., `gemini-2.0-flash-exp`).
+</ParamField>
+
+<ParamField body="extra_body" type="object">
+  Additional parameters specific to the provider.
+  <Expandable title="Extra Body Object">
+    <ParamField body="google" type="object">
+      Google-specific configuration.
+      <Expandable title="Google Config">
+        <ParamField body="thinking_config" type="object">
+          Configuration for the thinking process.
+          <Expandable title="Thinking Config">
+            <ParamField body="include_thoughts" type="boolean">
+              Whether to include the model's thoughts in the response.
+            </ParamField>
+            <ParamField body="thinkingBudget" type="integer">
+              The maximum number of tokens to spend on thinking.
+            </ParamField>
+          </Expandable>
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gemini-2.0-flash-exp",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Why is the sky blue?"
+    }
+  ],
+  "extra_body": {
+    "google": {
+      "thinking_config": {
+        "include_thoughts": true,
+        "thinkingBudget": 1024
+      }
+    }
+  }
+}
+```
+
+```json Response
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The sky appears blue because of Rayleigh scattering..."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 100,
+    "total_tokens": 110
+  }
+}
+```
+</ResponseExample>
+
+```

@@ -1,0 +1,49 @@
+﻿---
+title: "Create Completion"
+api: "POST /v1/completions"
+description: "Generate text completions based on a provided prompt."
+---
+
+<Note>
+  This endpoint is legacy and only supports older models like `gpt-3.5-turbo-instruct`. We recommend using the [Chat Completion](/Chat/ChatGpt%20interface/ChatGPT%20(Chat)/create-chat-completion-non-streaming) endpoint for most use cases.
+</Note>
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the model to use. Example: `gpt-3.5-turbo-instruct`.
+</ParamField>
+
+<ParamField body="prompt" type="string" default="<|endoftext|>">
+  The prompt to generate completions for.
+</ParamField>
+
+<ParamField body="max_tokens" type="integer" default="16">
+  The maximum number of tokens to generate.
+</ParamField>
+
+<ParamField body="temperature" type="number" default="1">
+  Sampling temperature between 0 and 2.
+</ParamField>
+
+<ParamField body="stream" type="boolean" default="false">
+  Whether to stream back partial progress.
+</ParamField>
+
+### Response
+
+The response returns a [Completion Object](/Chat/ChatGpt%20interface/ChatGPT%20auto-completion%20(Completions)/completion-object).
+
+<ResponseExample>
+
+```json Example Request
+{
+  "model": "gpt-3.5-turbo-instruct",
+  "prompt": "Say this is a test",
+  "max_tokens": 7,
+  "temperature": 0
+}
+```
+
+</ResponseExample>
+

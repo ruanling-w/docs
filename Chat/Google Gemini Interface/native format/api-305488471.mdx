@@ -1,0 +1,55 @@
+﻿---
+title: "Image Editing (Native)"
+description: "Modify or inpaint images using Gemini 2.0 Flash native image-to-image capabilities."
+---
+
+### Endpoint
+
+`POST /v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array">
+      <ParamField body="text" type="string">
+        Instructions for how to edit the image.
+      </ParamField>
+      <ParamField body="inline_data" type="object">
+        The base image to be edited.
+      </ParamField>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+     <ParamField body="responseModalities" type="array" required>
+      Set to `["IMAGE"]`.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        { "text": "Add a Santa hat to the person in this image." },
+        {
+          "inline_data": {
+            "mime_type": "image/png",
+            "data": "BASE64_IMAGE_DATA"
+          }
+        }
+      ]
+    }
+  ],
+  "generationConfig": {
+    "responseModalities": ["IMAGE"]
+  }
+}
+```
+</ResponseExample>

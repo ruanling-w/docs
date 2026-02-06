@@ -1,0 +1,39 @@
+﻿---
+title: "Imagen 4.0 (Native)"
+description: "Next-generation image generation using the Imagen 4.0 model via the predict endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/imagen-4.0-generate-001:predict`
+
+### Request Body
+
+<ParamField body="instances" type="array" required>
+  <Expandable title="Instance Object">
+    <ParamField body="prompt" type="string" required>
+      The description of the image to generate.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="parameters" type="object">
+  <Expandable title="Parameters Object">
+    <ParamField body="sampleCount" type="integer">
+      Number of images to generate.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "instances": [
+    { "prompt": "A majestic eagle soaring over the Alps." }
+  ],
+  "parameters": {
+    "sampleCount": 1
+  }
+}
+```
+</ResponseExample>

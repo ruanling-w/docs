@@ -1,0 +1,85 @@
+﻿---
+title: "Text Generation (Native)"
+description: "Generate responses from Google Gemini models using the native generateContent endpoint."
+---
+
+<Note>
+  This endpoint uses the native Gemini schema (`contents`/`parts`) and is non-streaming.
+</Note>
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Parameters
+
+<ParamField query="key" type="string" required>
+  Your API Key.
+</ParamField>
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  The conversation entries.
+  <Expandable title="Content Object">
+    <ParamField body="role" type="string">
+      The role (`user` or `model`).
+    </ParamField>
+    <ParamField body="parts" type="array" required>
+      Array of message parts.
+      <Expandable title="Part Object">
+        <ParamField body="text" type="string">
+          The text instruction or response.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="systemInstruction" type="object">
+  System-level instructions.
+  <Expandable title="System Instruction Object">
+    <ParamField body="parts" type="array">
+       <Expandable title="Part Object">
+        <ParamField body="text" type="string" />
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+    <ParamField body="temperature" type="number" />
+    <ParamField body="topP" type="number" />
+    <ParamField body="thinkingConfig" type="object">
+       <Expandable title="Thinking Config">
+          <ParamField body="includeThoughts" type="boolean" />
+          <ParamField body="thinkingBudget" type="integer" />
+       </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "systemInstruction": {
+    "parts": [{ "text": "You are a helpful assistant." }]
+  },
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "Who are you?" }]
+    }
+  ],
+  "generationConfig": {
+    "temperature": 1,
+    "topP": 1,
+    "thinkingConfig": {
+      "includeThoughts": true,
+      "thinkingBudget": 26240
+    }
+  }
+}
+```
+</ResponseExample>

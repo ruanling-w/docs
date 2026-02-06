@@ -1,0 +1,97 @@
+﻿---
+title: "Gemini File & Image Reading (Compatible)"
+description: "Send images and documents to Gemini models via the OpenAI-compatible chat interface."
+---
+
+<Note>
+  Gemini models support multimodal inputs including images and documents. You can use the `image_url` property within the message content to provide these files.
+</Note>
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the multimodal Gemini model (e.g., `gemini-1.5-pro`, `gemini-1.5-flash`).
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  The conversation history, including multimodal content.
+  <Expandable title="Message Object">
+    <ParamField body="role" type="string" required>
+      The role of the message author (`user`, `assistant`, `system`).
+    </ParamField>
+    <ParamField body="content" type="string | array" required>
+      The contents of the message. For multimodal input, use an array of content parts.
+      <Expandable title="Content Part (Multimodal)">
+        <ParamField body="type" type="string" required>
+          The type of the content part. Use `text` for text or `image_url` for files.
+        </ParamField>
+        <ParamField body="text" type="string">
+          The text content (required if type is `text`).
+        </ParamField>
+        <ParamField body="image_url" type="object">
+          The file or image (required if type is `image_url`).
+          <Expandable title="Image URL Object">
+             <ParamField body="url" type="string" required>
+               The URL of the image or document, or a base64 encoded data URI.
+             </ParamField>
+          </Expandable>
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="stream" type="boolean" default="false">
+  Whether to stream the response.
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gemini-1.5-flash",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "What is in this picture? Please describe it in detail."
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://example.com/image.png"
+          }
+        }
+      ]
+    }
+  ],
+  "stream": false
+}
+```
+
+```json Response
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "This picture shows..."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 150,
+    "completion_tokens": 50,
+    "total_tokens": 200
+  }
+}
+```
+</ResponseExample>
+
+```

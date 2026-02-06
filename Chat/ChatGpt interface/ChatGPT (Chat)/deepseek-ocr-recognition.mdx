@@ -1,0 +1,174 @@
+﻿---
+title: "DeepSeek OCR Recognition"
+api: "POST /v1/chat/completions"
+description: "Extract text from images using DeepSeek's optimized OCR model."
+---
+
+DeepSeek OCR is a specialized model for high-accuracy text extraction from images.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  Must be set to `deepseek-ocr`.
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  The conversation history. Note the specific system prompt required for OCR:
+  
+  ```json
+  [
+    {
+      "role": "system",
+      "content": "<image>\nFree OCR."
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://example.com/image.jpg"
+          }
+        }
+      ]
+    }
+  ]
+  ```
+</ParamField>
+
+<ParamField body="stream" type="boolean" default="false">
+  Whether to stream the OCR results.
+</ParamField>
+
+<ResponseExample>
+
+```json Example Request
+{
+  "model": "deepseek-ocr",
+  "stream": true,
+  "messages": [
+    {
+      "role": "system",
+      "content": "<image>\nFree OCR."
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://s3.ffire.cc/files/pdf_to_markdown.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+</ResponseExample>
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                  created:
+                    type: integer
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                        message:
+                          type: object
+                          properties:
+                            role:
+                              type: string
+                            content:
+                              type: string
+                          required:
+                            - role
+                            - content
+                          x-apifox-orders:
+                            - role
+                            - content
+                        finish_reason:
+                          type: string
+                      x-apifox-orders:
+                        - index
+                        - message
+                        - finish_reason
+                  usage:
+                    type: object
+                    properties:
+                      prompt_tokens:
+                        type: integer
+                      completion_tokens:
+                        type: integer
+                      total_tokens:
+                        type: integer
+                    required:
+                      - prompt_tokens
+                      - completion_tokens
+                      - total_tokens
+                    x-apifox-orders:
+                      - prompt_tokens
+                      - completion_tokens
+                      - total_tokens
+                required:
+                  - id
+                  - object
+                  - created
+                  - choices
+                  - usage
+                x-apifox-orders:
+                  - id
+                  - object
+                  - created
+                  - choices
+                  - usage
+              example:
+                id: chatcmpl-123
+                object: chat.completion
+                created: 1677652288
+                choices:
+                  - index: 0
+                    message:
+                      role: assistant
+                      content: |-
+
+
+                        Hello there, how may I assist you today?
+                    finish_reason: stop
+                usage:
+                  prompt_tokens: 9
+                  completion_tokens: 12
+                  total_tokens: 21
+          headers: {}
+          x-apifox-name: OK
+      security:
+        - bearer: []
+      x-apifox-folder: Chat/ChatGpt Interface/ChatGPT Chat
+      x-apifox-status: released
+      x-run-in-apifox: https://app.apifox.com/web/project/5443236/apis/api-368684149-run
+components:
+  schemas: {}
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+servers:
+  - url: https://api.chainhub.tech
+    description: Production Environment
+security:
+  - bearer: []
+```

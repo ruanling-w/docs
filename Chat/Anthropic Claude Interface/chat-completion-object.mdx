@@ -1,0 +1,94 @@
+---
+title: "Chat Completion Object"
+description: "Represents a chat completion response returned by model, based on the provided input."
+---
+
+The `chat.completion` object represents a complete response from a non-streamed chat completion request.
+
+### Fields
+
+<ResponseField name="id" type="string">
+  A unique identifier for the chat completion.
+</ResponseField>
+
+<ResponseField name="object" type="string">
+  The object type, which is always `chat.completion`.
+</ResponseField>
+
+<ResponseField name="created" type="integer">
+  A Unix timestamp (in seconds) of when the chat completion was created.
+</ResponseField>
+
+<ResponseField name="model" type="string">
+  The model used for the chat completion.
+</ResponseField>
+
+<ResponseField name="system_fingerprint" type="string">
+  This fingerprint represents the backend configuration that the model ran with.
+</ResponseField>
+
+<ResponseField name="choices" type="array">
+  A list of chat completion choices. Can be more than one if `n` is greater than 1.
+  <Expandable title="properties">
+    <ResponseField name="index" type="integer">
+      The index of the choice in the list of choices.
+    </ResponseField>
+    <ResponseField name="message" type="object">
+      A chat completion message object.
+      <Expandable title="properties">
+        <ResponseField name="role" type="string">
+          The role of the author of this message.
+        </ResponseField>
+        <ResponseField name="content" type="string">
+          The contents of the message.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+    <ResponseField name="finish_reason" type="string">
+      The reason the model stopped generating tokens. This will be `stop` if the model hit a natural stop point or a provided stop sequence, `length` if the maximum number of tokens specified in the request was reached, `content_filter` if content was omitted due to a flag from our content filters, `tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="usage" type="object">
+  Usage statistics for the completion request.
+  <Expandable title="properties">
+    <ResponseField name="prompt_tokens" type="integer">
+      Number of tokens in the prompt.
+    </ResponseField>
+    <ResponseField name="completion_tokens" type="integer">
+      Number of tokens generated in the completion.
+    </ResponseField>
+    <ResponseField name="total_tokens" type="integer">
+      Total number of tokens used in the request (prompt + completion).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### Example
+
+```json
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "model": "gpt-3.5-turbo-0613",
+  "system_fingerprint": "fp_44709d6fcb",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nHello there, how may I assist you today?"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 12,
+    "total_tokens": 21
+  }
+}
+```
+

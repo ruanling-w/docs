@@ -1,0 +1,32 @@
+﻿---
+title: "Streaming Responses"
+description: "How to handle real-time streaming using server-sent events."
+---
+
+Enable streaming to receive model output as it is generated.
+
+### Endpoint
+
+`POST /v1/responses`
+
+### Request Body
+
+<ParamField body="stream" type="boolean" default="true" required>
+  Must be set to `true`.
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gpt-4o",
+  "messages": [
+    { "role": "user", "content": "Write a long story." }
+  ],
+  "stream": true
+}
+```
+</ResponseExample>
+
+### Response Format
+
+Responses are returned as individual data chunks using the `text/event-stream` format.

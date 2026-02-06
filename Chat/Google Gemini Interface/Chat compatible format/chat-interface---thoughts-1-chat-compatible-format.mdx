@@ -1,0 +1,63 @@
+﻿---
+title: "Gemini Thinking - Reasoning Effort (Compatible)"
+description: "Enable reasoning on Gemini models using the reasoning_effort parameter."
+---
+
+<Note>
+  Some Gemini models support a "thinking" mode that allows the model to process complex reasoning steps before providing a final answer.
+</Note>
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the Gemini model (e.g., `gemini-2.0-flash-thinking-exp-1219`).
+</ParamField>
+
+<ParamField body="reasoning_effort" type="string">
+  Specifies the amount of reasoning effort. Supported values: `low`, `medium`, `high`.
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  The conversation history.
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gemini-2.0-flash-thinking-exp-1219",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Solve this complex math problem: ..."
+    }
+  ],
+  "reasoning_effort": "low",
+  "stream": true
+}
+```
+
+```json Response
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The solution is..."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 100,
+    "completion_tokens": 500,
+    "total_tokens": 600
+  }
+}
+```
+</ResponseExample>
+
+```

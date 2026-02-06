@@ -1,0 +1,62 @@
+﻿---
+title: "Function Calling (Native)"
+description: "Enable Gemini to interact with external tools using function declarations."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="tools" type="array" required>
+  List of tools available to the model.
+  <Expandable title="Tool Object">
+    <ParamField body="functionDeclarations" type="array">
+      <Expandable title="Function Object">
+        <ParamField body="name" type="string" required />
+        <ParamField body="description" type="string" />
+        <ParamField body="parameters" type="object">
+           The JSON schema for function arguments.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+    <ParamField body="responseModalities" type="array">
+       Optional.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "What is the weather in London?" }]
+    }
+  ],
+  "tools": [
+    {
+      "functionDeclarations": [
+        {
+          "name": "get_weather",
+          "description": "Get current weather in a location.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "location": { "type": "string" }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+</ResponseExample>

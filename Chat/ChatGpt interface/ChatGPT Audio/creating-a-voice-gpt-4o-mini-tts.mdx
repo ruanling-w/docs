@@ -1,0 +1,43 @@
+﻿---
+title: "Text to Speech (TTS)"
+api: "POST /v1/audio/speech"
+description: "Generate lifelike spoken audio from text."
+---
+
+Convert text into high-quality spoken audio using models like `gpt-4o-mini-tts` or `tts-1`.
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the model to use. Options: `gpt-4o-mini-tts`, `tts-1`, `tts-1-hd`.
+</ParamField>
+
+<ParamField body="input" type="string" required>
+  The text to generate audio for. Maximum length is 4096 characters.
+</ParamField>
+
+<ParamField body="voice" type="string" required>
+  The voice to use. Supported voices: `alloy`, `echo`, `fable`, `onyx`, `nova`, and `shimmer`.
+</ParamField>
+
+<ParamField body="response_format" type="string" default="mp3">
+  The audio format. Options: `mp3`, `opus`, `aac`, `flac`.
+</ParamField>
+
+<ParamField body="speed" type="number" default="1.0">
+  The speed of the generated audio (0.25 to 4.0).
+</ParamField>
+
+<ResponseExample>
+
+```json Example Request
+{
+  "model": "gpt-4o-mini-tts",
+  "input": "The quick brown fox jumped over the lazy dog.",
+  "voice": "alloy"
+}
+```
+
+</ResponseExample>
+
+```

@@ -1,0 +1,35 @@
+﻿---
+title: "Create Model Response"
+description: "The basic non-streaming endpoint for the ChainHub Responses API."
+---
+
+The Responses API is a powerful alternative to Chat Completions, offering built-in tool handling and advanced reasoning controls.
+
+### Endpoint
+
+`POST /v1/responses`
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  ID of the model to use (e.g., `gpt-4o`, `claude-3-5-sonnet`).
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  The conversation history.
+</ParamField>
+
+<ParamField body="stream" type="boolean" default="false">
+  Set to `true` for streaming responses.
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gpt-4o",
+  "messages": [
+    { "role": "user", "content": "Hello!" }
+  ]
+}
+```
+</ResponseExample>

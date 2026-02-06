@@ -1,0 +1,30 @@
+﻿---
+title: "Built-in Web Search"
+description: "Enable real-time web search capabilities in the Responses API."
+---
+
+The Responses API provides a built-in search tool that can be enabled with a simple flag.
+
+### Configuration
+
+<ParamField body="tools" type="array">
+  <Expandable title="Tool Object">
+    <ParamField body="type" type="string">
+      Set to `web_search`.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gpt-4o",
+  "messages": [
+    { "role": "user", "content": "What is the current price of Bitcoin?" }
+  ],
+  "tools": [
+    { "type": "web_search" }
+  ]
+}
+```
+</ResponseExample>

@@ -1,0 +1,32 @@
+﻿---
+title: "Google Search (Native)"
+description: "Enable Gemini to perform real-time Google searches to ground its responses."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="tools" type="array" required>
+  <Expandable title="Tool Object">
+    <ParamField body="googleSearch" type="object">
+      Include an empty object `{}` to enable Grounding with Google Search.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "What are the latest news about ChainHub?" }]
+    }
+  ],
+  "tools": [{ "googleSearch": {} }]
+}
+```
+</ResponseExample>

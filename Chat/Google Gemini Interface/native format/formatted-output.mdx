@@ -1,0 +1,47 @@
+﻿---
+title: "Structured Output (Native)"
+description: "Constrain Gemini responses to specific JSON schemas using native responseMimeType."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+    <ParamField body="responseMimeType" type="string" required>
+      Set to `application/json` to force JSON output.
+    </ParamField>
+    <ParamField body="responseSchema" type="object">
+      A JSON schema defining the expected response format.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "List 3 colors and their hex codes." }]
+    }
+  ],
+  "generationConfig": {
+    "responseMimeType": "application/json",
+    "responseSchema": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "color": { "type": "string" },
+          "hex": { "type": "string" }
+        }
+      }
+    }
+  }
+}
+```
+</ResponseExample>

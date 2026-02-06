@@ -1,0 +1,36 @@
+﻿---
+title: "URL Context (Native)"
+description: "Input URLs directly into your prompt to allow Gemini to analyze web content using the urlContext tool."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="tools" type="array" required>
+  <Expandable title="Tool Object">
+    <ParamField body="urlContext" type="object">
+      Include an empty object `{}` to enable URL reading capabilities.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="contents" type="array" required>
+  Include the URL string directly in the message part text.
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "https://chainhub.tech Summarize the features of this platform." }]
+    }
+  ],
+  "tools": [{ "urlContext": {} }]
+}
+```
+</ResponseExample>

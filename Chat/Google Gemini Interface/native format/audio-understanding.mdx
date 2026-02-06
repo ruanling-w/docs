@@ -1,0 +1,54 @@
+﻿---
+title: "Audio Understanding"
+description: "Process audio files via base64 using the native Gemini endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/{model}:generateContent`
+
+### Request Body
+
+<ParamField body="contents" type="array" required>
+  <Expandable title="Content Object">
+    <ParamField body="parts" type="array" required>
+      <Expandable title="Part Object">
+        <ParamField body="text" type="string">
+          The text prompt accompanying the audio.
+        </ParamField>
+        <ParamField body="inline_data" type="object">
+          The audio file data.
+          <Expandable title="Inline Data Object">
+            <ParamField body="mime_type" type="string" required>
+              e.g., `audio/mp3`, `audio/wav`.
+            </ParamField>
+            <ParamField body="data" type="string" required>
+              Base64 encoded audio data.
+            </ParamField>
+          </Expandable>
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        { "text": "What is being said in this audio?" },
+        {
+          "inline_data": {
+            "mime_type": "audio/mp3",
+            "data": "BASE64_AUDIO_DATA"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+</ResponseExample>

@@ -1,0 +1,92 @@
+﻿---
+title: "Gemini Image Recognition (Compatible)"
+description: "Send images to Gemini models for analysis via the OpenAI-compatible chat interface."
+---
+
+<Note>
+  Gemini models are highly capable at image understanding. This endpoint allows you to send images for recognition and description.
+</Note>
+
+### Request Body
+
+<ParamField body="model" type="string" required>
+  The ID of the multimodal Gemini model (e.g., `gemini-1.5-pro`, `gemini-1.5-flash`).
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+  The conversation history, including image content.
+  <Expandable title="Message Object">
+    <ParamField body="role" type="string" required>
+      The role of the message author (`user`).
+    </ParamField>
+    <ParamField body="content" type="array" required>
+      An array of content parts.
+      <Expandable title="Content Part">
+        <ParamField body="type" type="string" required>
+          Type of content. Use `text` or `image_url`.
+        </ParamField>
+        <ParamField body="text" type="string">
+          The text prompt (e.g., "What is in this picture?").
+        </ParamField>
+        <ParamField body="image_url" type="object">
+          The image to analyze.
+          <Expandable title="Image URL Object">
+            <ParamField body="url" type="string" required>
+              The URL or base64 data of the image.
+            </ParamField>
+          </Expandable>
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "model": "gemini-1.5-pro",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "What is in this picture?"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://example.com/image.png"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+```json Response
+{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The image shows a sunset over the ocean..."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 150,
+    "completion_tokens": 30,
+    "total_tokens": 180
+  }
+}
+```
+</ResponseExample>
+
+```

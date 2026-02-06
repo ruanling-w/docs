@@ -1,0 +1,46 @@
+﻿---
+title: "Aspect Ratio Control (Gemini 2.5 Flash)"
+description: "How to specify aspect ratios for Imagen via the Gemini 2.5 Flash native endpoint."
+---
+
+### Endpoint
+
+`POST /v1beta/models/gemini-2.5-flash-image:generateContent`
+
+### Request Parameters
+
+<ParamField body="generationConfig" type="object">
+  <Expandable title="Generation Config">
+    <ParamField body="imageConfig" type="object">
+      <Expandable title="Image Config">
+        <ParamField body="aspectRatio" type="string" required>
+          Specifies the format. Supported values:
+          - `"1:1"` (Square)
+          - `"4:3"` (Standard)
+          - `"3:4"` (Portrait)
+          - `"16:9"` (Widescreen)
+          - `"9:16"` (Vertical)
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseExample>
+```json Request
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [{ "text": "Cyberpunk cityscape" }]
+    }
+  ],
+  "generationConfig": {
+    "responseModalities": ["IMAGE"],
+    "imageConfig": {
+      "aspectRatio": "16:9"
+    }
+  }
+}
+```
+</ResponseExample>
